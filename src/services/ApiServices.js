@@ -20,6 +20,6 @@ export const downloadVideo = (link, quality) => {
     // console.log(videoId)
     // console.log(quality)
 
-    const url = `http://localhost:8000/api/video/download?id=${videoId}&videoQuality=${quality}`
+    const url = `${BASE_URL}/video/download?id=${videoId}&videoQuality=${quality}`
     window.location.href = url
 }
