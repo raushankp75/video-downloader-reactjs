@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { fetchVideoDetails } from '../services/ApiServices'
+import { downloadVideo, fetchVideoDetails } from '../services/ApiServices'
 import VideoDetails from '../components/VideoDetails'
 import Loader from '../components/Loader'
 import FormInput from '../components/FormInput'
@@ -13,30 +13,38 @@ const Downloader = () => {
 
     const [link, setLink] = useState('')
     const [videoDetailsData, setVideoDetailsData] = useState('')
+
     const [quality, setQuality] = useState('')
+
     const [loader, setLoader] = useState(false)
+    const [downloadLoader, setDownloadLoader] = useState(false)
 
 
     const submitHandler = async (e) => {
         e.preventDefault();
 
-        // if(!link){
-        //     toast.warn('Enter a YouTube Link to Download')
-        // }
-
         try {
             setLoader(true)
             const response = await fetchVideoDetails(link)
             setLoader(false)
-            console.log(response, 15)
+            // console.log(response, 15)
             setVideoDetailsData(response.videoDetails)
-            setQuality(response.videoDetails)
-            toast.success(response.message)
+            setQuality(response.videoDetails.lastVideoQuality)
+            // toast.success(response.message)
         } catch (error) {
-            if(error.message){
+            if (error.message) {
                 toast.warn('Enter Valid Link')
                 setLoader(false)
             }
+        }
+    }
+
+    const downloadd = (e) => {
+        e.preventDefault();
+        if (link) {
+            setDownloadLoader(true)
+            toast.success('Downloading...')
+            downloadVideo(link, quality)
         }
     }
 
@@ -46,7 +54,7 @@ const Downloader = () => {
         <div className='md:w-[500px] w-full flex flex-col gap-5 p-4 rounded-md'>
             <Title />
             <FormInput submitHandler={submitHandler} setLink={setLink} />
-            {!loader ? videoDetailsData && <VideoDetails videoDetailsData={videoDetailsData} /> : <Loader />}
+            {!loader ? videoDetailsData && <VideoDetails videoDetailsData={videoDetailsData} setQuality={setQuality} downloadd={downloadd} downloadLoader={downloadLoader} /> : <Loader />}
         </div>
     )
 }
