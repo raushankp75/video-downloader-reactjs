@@ -17,7 +17,6 @@ const Downloader = () => {
     const [quality, setQuality] = useState('')
 
     const [loader, setLoader] = useState(false)
-    const [downloadLoader, setDownloadLoader] = useState(false)
 
 
     const submitHandler = async (e) => {
@@ -42,7 +41,6 @@ const Downloader = () => {
     const downloadd = (e) => {
         e.preventDefault();
         if (link) {
-            setDownloadLoader(true)
             toast.success('Downloading...')
             downloadVideo(link, quality)
         }
@@ -54,7 +52,7 @@ const Downloader = () => {
         <div className='md:w-[500px] w-full flex flex-col gap-5 p-4 rounded-md'>
             <Title />
             <FormInput submitHandler={submitHandler} setLink={setLink} />
-            {!loader ? videoDetailsData && <VideoDetails videoDetailsData={videoDetailsData} setQuality={setQuality} downloadd={downloadd} downloadLoader={downloadLoader} /> : <Loader />}
+            {!loader ? videoDetailsData && <VideoDetails videoDetailsData={videoDetailsData} setQuality={setQuality} downloadd={downloadd} /> : <Loader />}
         </div>
     )
 }

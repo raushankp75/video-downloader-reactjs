@@ -2,7 +2,7 @@ import React from 'react'
 import DownloadBtn from '../assets/download.gif'
 
 
-const VideoDetails = ({ videoDetailsData, setQuality, downloadd, downloadLoader }) => {
+const VideoDetails = ({ videoDetailsData, setQuality, downloadd }) => {
 
     return (
         <div>
@@ -24,7 +24,7 @@ const VideoDetails = ({ videoDetailsData, setQuality, downloadd, downloadLoader 
                 <button
                     onClick={downloadd}
                     className="w-fit uppercase rounded-md tracking-wide font-semibold text-lg text-white px-5 py-2 outline-none hover:scale-105 duration-300 hover:transition-all ease-in-out hover:shadow-xl hover:drop-shadow-xl active:scale-75 active:shadow-none bg-gradient-to-r from-red-400 from-10% via-red-500 via-30% to-red-400 to-90%"
-                >{downloadLoader ? <img src={DownloadBtn} alt="DownloadBtn" className='bg-none w-[30px] h-[30px]' /> : 'Download'}
+                >Download
                 </button>
             </div>
         </div>
